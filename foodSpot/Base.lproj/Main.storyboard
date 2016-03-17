@@ -192,6 +192,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundImageViw" destination="KOX-is-GD8" id="Alf-7J-Q1x"/>
+                        <outlet property="ratingStack" destination="TVV-Lb-m1p" id="CU3-aj-0E2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4z0-Fe-7K9" userLabel="First Responder" sceneMemberID="firstResponder"/>
