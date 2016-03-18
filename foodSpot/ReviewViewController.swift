@@ -12,6 +12,9 @@ class ReviewViewController: UIViewController {
     @IBOutlet weak var backgroundImageViw: UIImageView!
     @IBOutlet weak var ratingStack: UIStackView!
     
+    var rating:String?
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,5 +35,15 @@ class ReviewViewController: UIViewController {
             }, completion: nil)
         
     
+    }
+    
+    @IBAction func ratingSelected(sender: UIButton) {
+        switch(sender.tag){
+           case 100: rating = "dislike"
+           case 200: rating = "good"
+           case 300: rating = "great"
+           default: break
+        }
+    performSegueWithIdentifier("unwindToDetailView", sender: sender)
     }
 }

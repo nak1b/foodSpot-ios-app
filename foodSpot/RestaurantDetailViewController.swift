@@ -15,6 +15,8 @@ class RestaurantDetailViewController: UIViewController, UITableViewDelegate, UIT
     
     @IBOutlet weak var restaurantImageView: UIImageView!
     
+    @IBOutlet var ratingButton:UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,6 +32,11 @@ class RestaurantDetailViewController: UIViewController, UITableViewDelegate, UIT
         //dynamic cell sizing
         tableView.estimatedRowHeight = 36
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        // Set the rating of the restaurant
+        if restaurant.rating != "" {
+            ratingButton.setImage(UIImage(named: restaurant.rating), forState: UIControlState.Normal)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -77,6 +84,12 @@ class RestaurantDetailViewController: UIViewController, UITableViewDelegate, UIT
     
     //Rating Modal Closing
     @IBAction func close(segue:UIStoryboardSegue) {
+        if let reviewController = segue.sourceViewController as? ReviewViewController{
+            if let rating = reviewController.rating{
+                restaurant.rating = rating
+                ratingButton.setImage(UIImage(named: rating), forState: .Normal)
+            }
+        }
     }
     
     
