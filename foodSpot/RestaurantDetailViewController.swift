@@ -93,4 +93,12 @@ class RestaurantDetailViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showMap"{
+            let destinationController = segue.destinationViewController as! MapViewController
+            destinationController.restaurant = restaurant
+        }
+    }
+    
+    
 }
