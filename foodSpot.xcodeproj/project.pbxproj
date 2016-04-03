@@ -19,6 +19,7 @@
 		3127F7131C97C92000F418B3 /* RestaurantDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3127F7121C97C92000F418B3 /* RestaurantDetailTableViewCell.swift */; };
 		3127F7151C9A5B1500F418B3 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3127F7141C9A5B1500F418B3 /* ReviewViewController.swift */; };
 		3127F7171C9B906200F418B3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3127F7161C9B906200F418B3 /* MapKit.framework */; };
+		319179011CB1D89B0088F3F7 /* AddRestaurantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319179001CB1D89B0088F3F7 /* AddRestaurantController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		3127F7121C97C92000F418B3 /* RestaurantDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantDetailTableViewCell.swift; sourceTree = "<group>"; };
 		3127F7141C9A5B1500F418B3 /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		3127F7161C9B906200F418B3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		319179001CB1D89B0088F3F7 /* AddRestaurantController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddRestaurantController.swift; path = ../AddRestaurantController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 		3127F6F71C927D7B00F418B3 /* foodSpot */ = {
 			isa = PBXGroup;
 			children = (
+				319179001CB1D89B0088F3F7 /* AddRestaurantController.swift */,
 				3127F6F81C927D7B00F418B3 /* AppDelegate.swift */,
 				3127F6FC1C927D7B00F418B3 /* Main.storyboard */,
 				3127F6FF1C927D7B00F418B3 /* Assets.xcassets */,
@@ -162,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				319179011CB1D89B0088F3F7 /* AddRestaurantController.swift in Sources */,
 				3127F7111C95118100F418B3 /* Restaurant.swift in Sources */,
 				3127F70B1C927EA200F418B3 /* RestaurantTableViewController.swift in Sources */,
 				3127F7151C9A5B1500F418B3 /* ReviewViewController.swift in Sources */,
