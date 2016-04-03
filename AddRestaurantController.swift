@@ -83,6 +83,20 @@ class AddRestaurantController: UITableViewController,UIImagePickerControllerDele
         imageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         imageView.clipsToBounds = true
+        
+        
+        let leadingConstraint = NSLayoutConstraint(item: imageView, attribute: .Leading, relatedBy: .Equal, toItem: imageView.superview, attribute: .Leading, multiplier: 1, constant: 0)
+        leadingConstraint.active = true
+        
+        let trailingConstraint = NSLayoutConstraint(item: imageView, attribute: .Trailing, relatedBy: .Equal, toItem: imageView.superview, attribute: .Trailing, multiplier: 1, constant: 0)
+        trailingConstraint.active = true
+        
+        let topConstraint = NSLayoutConstraint(item: imageView, attribute: .Top, relatedBy: .Equal, toItem: imageView.superview, attribute: .Top, multiplier: 1, constant: 0)
+        topConstraint.active = true
+        
+        let bottomConstraint = NSLayoutConstraint(item: imageView, attribute: .Bottom, relatedBy: .Equal, toItem: imageView.superview, attribute: .Bottom, multiplier: 1, constant: 0)
+        bottomConstraint.active = true
+        
         dismissViewControllerAnimated(true, completion: nil)
     }
 }
