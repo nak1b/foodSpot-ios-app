@@ -11,6 +11,15 @@ import UIKit
 class AddRestaurantController: UITableViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
+   
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var typeField: UITextField!
+    @IBOutlet weak var locationField: UITextField!
+    
+    @IBOutlet weak var yesBtn: UIButton!
+    @IBOutlet weak var noBtn: UIButton!
+    
+    var isVisited = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,5 +107,44 @@ class AddRestaurantController: UITableViewController,UIImagePickerControllerDele
         bottomConstraint.active = true
         
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //Been Here Buttons Pressed
+    @IBAction func beenHereBtns
+        (sender: UIButton) {
+    
+        if sender == yesBtn{
+           isVisited = true
+            yesBtn.backgroundColor = UIColor(red: 0/255.0, green: 172/255.0, blue: 117/255.0, alpha: 1)
+             noBtn.backgroundColor = UIColor(red: 170/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
+        }else if sender == noBtn{
+           isVisited = false
+            noBtn.backgroundColor = UIColor(red: 0/255.0, green: 172/255.0, blue: 117/255.0, alpha: 1)
+            yesBtn.backgroundColor = UIColor(red: 170/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
+
+        }
+    }
+    //Save Button Pressed
+    @IBAction func savePressed(sender: UIBarButtonItem) {
+        let name = nameField.text
+        let type = typeField.text
+        let location = locationField.text
+        
+        if name == "" || type == "" || location == ""{
+            let alertController = UIAlertController(title: "Oops", message: "We can't proceed because one of the fields is blank. Please note that all fields are required.", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+            return
+        }
+        
+        print("Name: \(name)")
+        print("Type: \(type)")
+        print("Location: \(location)")
+        print("Have you been here: \(isVisited)")
+        
+        // Dismiss the view controller
+        dismissViewControllerAnimated(true, completion: nil)
+        
     }
 }
