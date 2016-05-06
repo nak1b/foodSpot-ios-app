@@ -130,6 +130,7 @@ class AddRestaurantController: UITableViewController,UIImagePickerControllerDele
         let type = typeField.text
         let location = locationField.text
         
+        //Check if all field enter or display error
         if name == "" || type == "" || location == ""{
             let alertController = UIAlertController(title: "Oops", message: "We can't proceed because one of the fields is blank. Please note that all fields are required.", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
