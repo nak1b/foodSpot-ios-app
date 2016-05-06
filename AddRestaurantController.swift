@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AddRestaurantController: UITableViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -20,6 +21,7 @@ class AddRestaurantController: UITableViewController,UIImagePickerControllerDele
     @IBOutlet weak var noBtn: UIButton!
     
     var isVisited = true
+    var restaurant:Restaurant!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,6 +141,28 @@ class AddRestaurantController: UITableViewController,UIImagePickerControllerDele
             return
         }
         
+        if let managedObjectContext = (UIApplication.sharedApplication().delegate as?
+            AppDelegate)?.managedObjectContext{
+            restaurant = NSEntityDescription.insertNewObjectForEntityForName("Restaurant", inManagedObjectContext: managedObjectContext) as! Restaurant
+            restaurant.name = name!
+            restaurant.type = type!
+            restaurant.location = location!
+            
+            if let restaurantImage = imageView.image{
+                restaurant.image = UIImagePNGRepresentation(restaurantImage)
+            }
+            
+            restaurant.isVisited = isVisited
+            
+            //Save to DB
+            do{
+                try managedObjectContext.save()
+            }catch{
+                print(error)
+                return
+            }
+            
+        }
         print("Name: \(name)")
         print("Type: \(type)")
         print("Location: \(location)")
