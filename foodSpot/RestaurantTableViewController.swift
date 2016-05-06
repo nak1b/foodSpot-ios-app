@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
-class RestaurantTableViewController: UITableViewController {
+class RestaurantTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+    
+    var fetchResultController:NSFetchedResultsController!
+    var restaurants:[Restaurant] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -17,6 +22,25 @@ class RestaurantTableViewController: UITableViewController {
         //self sizing cells
         tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        //CoreData :- Fetch Request
+        let fetchRequest = NSFetchRequest(entityName: "Restaurant")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let managedObjectContext = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext{
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do{
+                try fetchResultController.performFetch()
+                restaurants = fetchResultController.fetchedObjects as! [Restaurant]
+                
+            }catch{
+                print(error)
+            }
+        }
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -26,7 +50,6 @@ class RestaurantTableViewController: UITableViewController {
     }
     
     
-    var restaurants:[Restaurant] = []
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -93,6 +116,39 @@ class RestaurantTableViewController: UITableViewController {
 //            tableView.deselectRowAtIndexPath(indexPath, animated: true)
 //            
 //    }
+    
+    
+    //COREDATA :- Updating Table on DataChange
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type{
+        case .Insert:
+            if let _newIndexPath = newIndexPath{
+                tableView.insertRowsAtIndexPaths([_newIndexPath], withRowAnimation: .Fade)
+            }
+            
+        case .Delete:
+            if let _indexPath = indexPath{
+                tableView.deleteRowsAtIndexPaths([_indexPath], withRowAnimation: .Fade)
+            }
+            
+        case .Update:
+            if let _indexPath = indexPath{
+                tableView.reloadRowsAtIndexPaths([_indexPath], withRowAnimation: .Fade)
+            }
+        
+        default:
+            tableView.reloadData()
+        }
+        restaurants = controller.fetchedObjects as! [Restaurant]
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.endUpdates()
+    }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
