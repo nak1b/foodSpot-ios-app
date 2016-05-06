@@ -173,8 +173,18 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
         //Delete Action
         let deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
               // Delete the row from the data source
-              self.restaurants.removeAtIndex(indexPath.row)
-              tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+            if let managedObjectContext = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext{
+                let restaurantToDelete = self.fetchResultController.objectAtIndexPath(indexPath) as! Restaurant
+                managedObjectContext.deleteObject(restaurantToDelete)
+                
+                do{
+                    try managedObjectContext.save()
+                }catch{
+                    print(error)
+                }
+            }
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
         deleteAction.backgroundColor = UIColor(red: 202.0/255.0, green: 202.0/255.0, blue: 203.0/255.0, alpha: 1.0)
         
