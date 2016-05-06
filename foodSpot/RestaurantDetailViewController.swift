@@ -90,6 +90,15 @@ class RestaurantDetailViewController: UIViewController, UITableViewDelegate, UIT
             if let rating = reviewController.rating{
                 restaurant.rating = rating
                 ratingButton.setImage(UIImage(named: rating), forState: .Normal)
+                
+                if let managedObjectContext = (UIApplication.sharedApplication().delegate as?AppDelegate)?.managedObjectContext {
+                    do {
+                        try managedObjectContext.save()
+                    } catch {
+                        print(error)
+                    }
+                }
+                    
             }
         }
     }

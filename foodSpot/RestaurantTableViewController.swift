@@ -184,7 +184,6 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
                     print(error)
                 }
             }
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
         deleteAction.backgroundColor = UIColor(red: 202.0/255.0, green: 202.0/255.0, blue: 203.0/255.0, alpha: 1.0)
         
