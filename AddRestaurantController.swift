@@ -166,10 +166,6 @@ class AddRestaurantController: UITableViewController,UIImagePickerControllerDele
             }
             
         }
-        print("Name: \(name)")
-        print("Type: \(type)")
-        print("Location: \(location)")
-        print("Have you been here: \(isVisited)")
         
         // Dismiss the view controller
         dismissViewControllerAnimated(true, completion: nil)

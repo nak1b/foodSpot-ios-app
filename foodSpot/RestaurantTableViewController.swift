@@ -9,10 +9,12 @@
 import UIKit
 import CoreData
 
-class RestaurantTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class RestaurantTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
     
     var fetchResultController:NSFetchedResultsController!
     var restaurants:[Restaurant] = []
+    var searchController:UISearchController!
+    var searchResults:[Restaurant] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +43,14 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
             }
         }
         
+        //Adding SearchController on header
+        searchController = UISearchController(searchResultsController: nil)
+        tableView.tableHeaderView = searchController.searchBar
+        
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        
+        searchController.searchBar.placeholder = "Search restaurants..."
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -55,67 +65,43 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
         return 1
     }
     
+    //Not showing edit option on search restaurants
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return restaurants.count
+        if searchController.active{
+            return searchResults.count
+        }else{
+           return restaurants.count
+        }
     }
+    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "Cell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! RestaurantTableViewCell
-        cell.nameLabel.text = restaurants[indexPath.row].name
-        cell.typeLabel.text = restaurants[indexPath.row].type
-        cell.locationLabel.text = restaurants[indexPath.row].location
         
-        cell.thumbImageView.image = UIImage(data: restaurants[indexPath.row].image!)
-        if let isVisited = restaurants[indexPath.row].isVisited?.boolValue {
+        //Setting restaurant to all restaurant or serached restaurant
+        let restaurant = (searchController.active) ? searchResults[indexPath.row] :
+            restaurants[indexPath.row]
+        
+        cell.nameLabel.text = restaurant.name
+        cell.typeLabel.text = restaurant.type
+        cell.locationLabel.text = restaurant.location
+        
+        cell.thumbImageView.image = UIImage(data: restaurant.image!)
+        if let isVisited = restaurant.isVisited?.boolValue {
             cell.accessoryType = isVisited ? .Checkmark : .None
         }
 
-        
         return cell
     }
 
-//MARK: ActionSheet
-    
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//            //Create option Menu
-//            let optionMenu = UIAlertController(title: nil, message: "What do you want to do today", preferredStyle: .ActionSheet)
-//            
-//            //Add Cancel action to menu
-//            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-//            optionMenu.addAction(cancelAction)
-//            
-//            //Add call action
-//            let callActionHandler = {(action: UIAlertAction!) -> Void in
-//                let alertMessage = UIAlertController(title: "Service Unavailable", message:
-//                "Sorry, the call feature is not available yet. Please retry later.",
-//                preferredStyle: .Alert)
-//                alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:
-//                nil))
-//                self.presentViewController(alertMessage, animated: true, completion: nil)
-//            }
-//            
-//            let callAction = UIAlertAction(title: "Call 401-000-5555", style: .Default, handler: callActionHandler)
-//            optionMenu.addAction(callAction)
-//            
-//            
-//            //Add I'have been here action
-//            let isVisitedTitle = (restaurantIsVisited[indexPath.row]) ? "I've not been here" : "I've been here"
-//            let isVisitedAction = UIAlertAction(title: isVisitedTitle, style: .Default,
-//                    handler: {
-//                       (action:UIAlertAction!) -> Void in
-//                        let cell = tableView.cellForRowAtIndexPath(indexPath)
-//                        self.restaurantIsVisited[indexPath.row] = !self.restaurantIsVisited[indexPath.row]
-//                        cell?.accessoryType = (self.restaurantIsVisited[indexPath.row]) ? .Checkmark : .None
-//                    })
-//            optionMenu.addAction(isVisitedAction)
-//            
-//            //Present option menu
-//            self.presentViewController(optionMenu, animated: true, completion: nil)
-//            
-//            tableView.deselectRowAtIndexPath(indexPath, animated: true)
-//            
-//    }
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if searchController.active{
+            return false
+        }else{
+            return true
+        }
+    }
     
     
     //COREDATA :- Updating Table on DataChange
@@ -194,7 +180,7 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
         if(segue.identifier == "showRestaurantDetail"){
             if let indexPath = tableView.indexPathForSelectedRow{
                 let destinationController = segue.destinationViewController as! RestaurantDetailViewController
-                destinationController.restaurant = restaurants[indexPath.row]
+                    destinationController.restaurant = (searchController.active) ?searchResults[indexPath.row] : restaurants[indexPath.row]
             }
         }
     }
@@ -202,6 +188,24 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
     
     //Back to homescreen when cancel press on Add Restaurat Screen
     @IBAction func unwindToHomeScreen(segue:UIStoryboardSegue) {
+    }
+    
+    //Search:- Filtering Content
+    func filterContentForSearch(searchText:String){
+        searchResults = restaurants.filter({ (restaurant:Restaurant) -> Bool in
+            let nameMatch = restaurant.name.rangeOfString(searchText, options:
+                NSStringCompareOptions.CaseInsensitiveSearch)
+            
+            return nameMatch != nil
+        })
+    }
+    
+    //Updating the data with serach results
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        if let serachText = searchController.searchBar.text{
+            filterContentForSearch(serachText)
+        tableView.reloadData()
+        }
     }
 
 }
