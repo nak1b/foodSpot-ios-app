@@ -122,8 +122,37 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="72" id="nvw-SA-CVj">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="72" id="SbC-Sh-94Y">
                                         <rect key="frame" x="0.0" y="530" width="600" height="72"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SbC-Sh-94Y" id="KiI-Lx-GEV">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="71"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l28-WR-tnu">
+                                                    <rect key="frame" x="14" y="8" width="115" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lH1-BP-fuc">
+                                                    <rect key="frame" x="14" y="29" width="578" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lH1-BP-fuc" firstAttribute="leading" secondItem="KiI-Lx-GEV" secondAttribute="leadingMargin" constant="6" id="8G0-L2-idC"/>
+                                                <constraint firstItem="lH1-BP-fuc" firstAttribute="trailing" secondItem="KiI-Lx-GEV" secondAttribute="trailingMargin" id="9Ma-aR-YWz"/>
+                                                <constraint firstItem="lH1-BP-fuc" firstAttribute="top" secondItem="l28-WR-tnu" secondAttribute="bottom" id="CwY-QI-l2x"/>
+                                                <constraint firstItem="l28-WR-tnu" firstAttribute="leading" secondItem="KiI-Lx-GEV" secondAttribute="leadingMargin" constant="6" id="Zuo-Wo-xes"/>
+                                                <constraint firstItem="lH1-BP-fuc" firstAttribute="bottom" secondItem="KiI-Lx-GEV" secondAttribute="bottomMargin" id="fUm-b9-xwH"/>
+                                                <constraint firstItem="l28-WR-tnu" firstAttribute="top" secondItem="KiI-Lx-GEV" secondAttribute="topMargin" id="wn2-RH-fsx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="72" id="nvw-SA-CVj">
+                                        <rect key="frame" x="0.0" y="602" width="600" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nvw-SA-CVj" id="alp-W6-Nzf">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="71"/>
@@ -199,6 +228,7 @@
                         <outlet property="locationField" destination="uy6-wD-lHw" id="Can-nV-1qn"/>
                         <outlet property="nameField" destination="2v4-AS-bSA" id="IoF-oC-eQc"/>
                         <outlet property="noBtn" destination="xvm-AJ-Mha" id="Zbi-3Y-bbM"/>
+                        <outlet property="phoneFIeld" destination="lH1-BP-fuc" id="Tim-IB-acV"/>
                         <outlet property="typeField" destination="dUv-rZ-sLi" id="m25-NZ-jEM"/>
                         <outlet property="yesBtn" destination="ZMc-35-DFZ" id="X2N-OX-2bJ"/>
                     </connections>

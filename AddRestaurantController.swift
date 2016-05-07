@@ -15,6 +15,7 @@ class AddRestaurantController: UITableViewController,UIImagePickerControllerDele
    
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var typeField: UITextField!
+    @IBOutlet weak var phoneFIeld: UITextField!
     @IBOutlet weak var locationField: UITextField!
     
     @IBOutlet weak var yesBtn: UIButton!
@@ -131,6 +132,7 @@ class AddRestaurantController: UITableViewController,UIImagePickerControllerDele
         let name = nameField.text
         let type = typeField.text
         let location = locationField.text
+        let phone = phoneFIeld.text
         
         //Check if all field enter or display error
         if name == "" || type == "" || location == ""{
@@ -147,6 +149,7 @@ class AddRestaurantController: UITableViewController,UIImagePickerControllerDele
             restaurant.name = name!
             restaurant.type = type!
             restaurant.location = location!
+            restaurant.phoneNumber = phone
             
             if let restaurantImage = imageView.image{
                 restaurant.image = UIImagePNGRepresentation(restaurantImage)
